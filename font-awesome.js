@@ -12,9 +12,9 @@ util.loadUrls('https://raw.githubusercontent.com/twbs/bootstrap/master/less/glyp
             charCode = line.match(/content.*?"(.*?)"/)[1];
         convertFilenames[charCode.replace('\\', '')] = charName;
     });
-    control('glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames, genPng: [50,200]});
+    control('glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
 });
-
+return;
 var version = "v4.2.0";
 util.loadUrls([
     'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' + version + '/src/icons.yml',
@@ -27,5 +27,5 @@ util.loadUrls([
     });
 
     //1519 for normal, 1536 for offsetted
-    control('fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames, genPng: [50,200]});
+    control('fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
 });

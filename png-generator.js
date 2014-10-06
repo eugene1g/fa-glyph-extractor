@@ -1,7 +1,7 @@
 "use strict";
 
-var path = require('path'),
-    fs = require('fs'),
+var path  = require('path'),
+    fs    = require('fs'),
     mkdir = require('mkdirp'),
     spawn = require('child_process').spawn;
 
@@ -9,6 +9,14 @@ var path = require('path'),
 var converterExec = 'batik-rasterizer';
 //Currently converts svg with apache batik
 //Add handlers for more processors, like rsvg or GraphicsMagick
+
+//Add an option to trim images on output
+//through GM or IM
+//gm mogrify -trim *
+//Perhaps trim SVGs as well? no need, they can be imported into any SVG tool already
+
+//add an option to optimize PNGs
+//add an option to generate sprits from PNGs or SVGs
 
 
 function getRasterizerParams(resizerName, ops) {
@@ -38,10 +46,10 @@ module.exports = function (sourceDir, targetDir, heights) {
 
         var coverter = spawn(converterExec, converterParams);
         coverter.stdout.on('data', function (data) {
-            console.log(data.toString());
+            //console.log(data.toString());
         });
         coverter.stderr.on('data', function (data) {
-            console.log(data.toString());
+            //console.log(data.toString());
         });
     });
 }
