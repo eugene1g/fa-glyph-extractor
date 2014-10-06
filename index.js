@@ -79,13 +79,13 @@ function generateSvgFiles(folder, content) {
 function generatePngsFromFolder(folder) {
     var spawn = require('child_process').spawn;
 
-    ensureDir(path.join(config.color, 'png'));
-
     config.height.forEach(function (size) {
         size = size.trim();
-        var targetDir = path.join(config.color, 'png', size.toString());
+        var targetDir = path.join(folder, 'png', size.toString());
         ensureDir(targetDir);
-        var ps = spawn('java', ['-jar', __dirname + '/batik-rasterizer.jar', "$@", '-d', targetDir, '-h', size, path.join(config.color, 'svg')]);
+        //var ps = spawn('java', ['-jar', __dirname + '/batik-rasterizer.jar', "$@", '-d', targetDir, '-h', size, path.join(config.color, 'svg')]);
+        //var ps = spawn('batik-rasterizer', ['-d', targetDir, '-h', size, path.join(folder, 'svg')]);
+        var ps = spawn('batik-rasterizer', ['-d', targetDir, path.join(folder, 'svg', size)]);
         ps.stdout.on('data', function (data) {
             console.log(data.toString());
         });
