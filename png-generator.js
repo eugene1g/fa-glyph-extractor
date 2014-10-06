@@ -1,25 +1,46 @@
 "use strict";
 
-var path  = require('path'),
+var path = require('path'),
+    fs = require('fs'),
+    mkdir = require('mkdirp'),
     spawn = require('child_process').spawn;
 
-//rsvg
-//batik
-//GraphicsMagick
-//ImageMagick
 
+var converterExec = 'batik-rasterizer';
+//Currently converts svg with apache batik
+//Add handlers for more processors, like rsvg or GraphicsMagick
+
+
+function getRasterizerParams(resizerName, ops) {
+    var params = [];
+
+    if (resizerName == 'batik-rasterizer') {
+        params = ['-d', ops.toDir, '-h', ops.maxHeight, ops.sourceDir];
+    }
+
+    return params;
+}
 module.exports = function (sourceDir, targetDir, heights) {
+
     heights.forEach(function (size) {
 
         size = String(size).trim();
-        var saveToDir = path(targetDir, size);
-        //var ps = spawn('java', ['-jar', __dirname + '/batik-rasterizer.jar', "$@", '-d', targetDir, '-h', size, path.join(config.color, 'svg')]);
-        //var ps = spawn('batik-rasterizer', ['-d', targetDir, '-h', size, path.join(folder, 'svg')]);
-        var ps = spawn('batik-rasterizer', ['-d', saveToDir, '-h', size, sourceDir]);
-        ps.stdout.on('data', function (data) {
+        var saveToDir = path.join(targetDir, 'png', size);
+
+        if (!fs.existsSync(saveToDir)) mkdir.sync(saveToDir);
+
+
+        var converterParams = getRasterizerParams(converterExec, {
+            toDir:     saveToDir,
+            maxHeight: size,
+            sourceDir: sourceDir
+        });
+
+        var coverter = spawn(converterExec, converterParams);
+        coverter.stdout.on('data', function (data) {
             console.log(data.toString());
         });
-        ps.stderr.on('data', function (data) {
+        coverter.stderr.on('data', function (data) {
             console.log(data.toString());
         });
     });

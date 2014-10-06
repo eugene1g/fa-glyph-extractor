@@ -12,7 +12,7 @@ util.loadUrls('https://raw.githubusercontent.com/twbs/bootstrap/master/less/glyp
             charCode = line.match(/content.*?"(.*?)"/)[1];
         convertFilenames[charCode.replace('\\', '')] = charName;
     });
-    control('glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames});
+    control('glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames, genPng: [50,200]});
 });
 
 var version = "v4.2.0";
@@ -27,5 +27,5 @@ util.loadUrls([
     });
 
     //1519 for normal, 1536 for offsetted
-    control('fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames});
+    control('fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames, genPng: [50,200]});
 });
