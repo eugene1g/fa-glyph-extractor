@@ -12,7 +12,6 @@ var optimist = require('optimist'),
         describe('color', "The default color for your icons").
         describe('height', "How high each icon needs to be").
         describe('icons', "Comma-separated list to limits icons to certain codes").
-        describe('flexible', "Whether to run through optimiser or not").
         describe('png', "Include this to generate PNG files. Please note you will need to have an executable binary in your path for 'batik-rasterizer' or 'rsvg-convert'").
         default(cliDefaults).argv
     ;
