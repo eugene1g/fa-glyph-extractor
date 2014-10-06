@@ -14,7 +14,7 @@ util.loadUrls('https://raw.githubusercontent.com/zurb/foundation-icon-fonts/mast
             charCode = line.match(/content.*?"(.*?)"/)[1];
         convertFilenames[charCode.replace('\\', '')] = charName;
     });
-    control('fi', fs.readFileSync('testsources/foundation.svg', 'utf-8'), {filenames: convertFilenames});
+    control('test/fi', fs.readFileSync('testsources/foundation.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
 });
 
 util.loadUrls('https://raw.githubusercontent.com/twbs/bootstrap/master/less/glyphicons.less', function (remoteText) {
@@ -25,7 +25,7 @@ util.loadUrls('https://raw.githubusercontent.com/twbs/bootstrap/master/less/glyp
             charCode = line.match(/content.*?"(.*?)"/)[1];
         convertFilenames[charCode.replace('\\', '')] = charName;
     });
-    control('glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
+    control('test/glyphicon', fs.readFileSync('testsources/gly.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
 });
 
 
@@ -41,5 +41,5 @@ util.loadUrls([
     });
 
     //1519 for normal, 1536 for offsetted
-    control('fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
+    control('test/fa', fs.readFileSync('testsources/fa.svg', 'utf-8'), {filenames: convertFilenames, genPng: [200]});
 });

@@ -36,7 +36,7 @@ function extractCharsFromFont(fontSvgDefinition, callback) {
             var iconCode = glyph['$']['unicode'],
                 pathData = glyph['$']['d'],
                 customWidthMatch = glyph['$']['horiz-adv-x'],
-                contentWidth = customWidthMatch && false ? customWidthMatch[1] : defaultCharWidth;
+                contentWidth = customWidthMatch ? customWidthMatch : defaultCharWidth;
 
             if (iconCode.indexOf('&#') != -1) {
                 iconCode = iconCode.replace("&#x", "");
