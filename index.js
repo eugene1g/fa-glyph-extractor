@@ -1,14 +1,11 @@
 "use strict";
 
-var request      = require('superagent'),
-    path         = require('path'),
+var path         = require('path'),
     fs           = require('graceful-fs'),
     mkdir        = require('mkdirp'),
     extractor    = require('./glyph-extractor'),
     pngGenerator = require('./png-generator'),
-    config       = require('./defaultConfig')
-    ;
-
+    config       = require('./defaultConfig');
 
 //var sourceDir = path.join(folder, 'svg'),
 //    targetDir = path.join(folder, 'png');

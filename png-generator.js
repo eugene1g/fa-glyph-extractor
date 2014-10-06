@@ -1,9 +1,12 @@
 "use strict";
 
 var path  = require('path'),
-    fs    = require('graceful-fs'),
     spawn = require('child_process').spawn;
 
+//rsvg
+//batik
+//GraphicsMagick
+//ImageMagick
 
 module.exports = function (sourceDir, targetDir, heights) {
     heights.forEach(function (size) {

@@ -18,6 +18,11 @@ function extractCharsFromFont(fontSvgDefinition, callback) {
         defaultCharWidth = fontSvgDefinition.match(/<font .*?horiz-adv-x="(\d+)"/)[1],
         defaultCharHeight = fontSvgDefinition.match(/<font-face .*?units-per-em="(\d+)"/)[1],
         defaultCharAscent = fontSvgDefinition.match(/<font-face .*?ascent="(\d+)"/)[1],
+
+        //"square" fonts tend to be based at the center (like glyphicon)
+        //white other fonts tend to be based around the charAscent mark
+        //so wen need to flip them with different adjustments
+        translateOffset = (defaultCharWidth == defaultCharHeight ? defaultCharHeight : defaultCharAscent),
         iconSvg = [];
 
     fontGlyphs.forEach(function (glyph) {
@@ -31,14 +36,13 @@ function extractCharsFromFont(fontSvgDefinition, callback) {
             path: pathData,
             svg: '<svg xmlns="http://www.w3.org/2000/svg" ' +
                  'viewBox="0 0 ' + contentWidth + ' ' + defaultCharHeight + '">' +
-                 '<g transform="scale(1,-1) translate(0 -' + (defaultCharHeight) + ')">' +
+                 '<g transform="scale(1,-1) translate(0 -' + (translateOffset) + ')">' +
                  '<path d="' + pathData + '"/>' +
             '</g></svg>'
         });
     });
 
-    callback(iconSvg);
-    return;
+    //callback(iconSvg);return;
 
     var optimizedCount = 0;
     iconSvg.forEach(function (ic, idx) {
@@ -46,7 +50,7 @@ function extractCharsFromFont(fontSvgDefinition, callback) {
 
             //override SVG and path details with the clean result
             iconSvg[idx].svg = result.data;
-            iconSvg[idx].path = result.data.match(/path="(.*?)"/)[1];
+            iconSvg[idx].path = result.data.match(/d="(.*?)"/)[1];
 
             if (++optimizedCount == iconSvg.length) {
                 callback(iconSvg);
