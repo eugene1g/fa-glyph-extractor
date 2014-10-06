@@ -1,6 +1,6 @@
 "use strict";
 
-var svgo = new (require('svgo'));
+var svgo = new (require('svgo')), xml2js = require('xml2js');
 
 /**
  * Callback recieves an array of characters with the format of
@@ -14,47 +14,66 @@ var svgo = new (require('svgo'));
  * @param callback
  */
 function extractCharsFromFont(fontSvgDefinition, callback) {
-    var fontGlyphs = fontSvgDefinition.match(/<glyph.*?d=.{10,}?>/g), //filter for glyphs where some paths are specified
-        defaultCharWidth = fontSvgDefinition.match(/<font .*?horiz-adv-x="(\d+)"/)[1],
-        defaultCharHeight = fontSvgDefinition.match(/<font-face .*?units-per-em="(\d+)"/)[1],
-        defaultCharAscent = fontSvgDefinition.match(/<font-face .*?ascent="(\d+)"/)[1],
 
-        //"square" fonts tend to be based at the center (like glyphicon)
-        //white other fonts tend to be based around the charAscent mark
-        //so wen need to flip them with different adjustments
-        translateOffset = (defaultCharWidth == defaultCharHeight ? defaultCharHeight : defaultCharAscent),
-        iconSvg = [];
+    var parser = new xml2js.Parser();
+    parser.parseString(fontSvgDefinition, function (err, result) {
+        var fontSpec = result.svg.defs[0].font[0],
+            defaultCharWidth = fontSpec['$']['horiz-adv-x'],
+            fontFace = fontSpec['font-face'][0]['$'],
+            defaultCharHeight = fontFace['units-per-em'],
+            defaultCharAscent = fontFace['ascent'],
 
-    fontGlyphs.forEach(function (glyph) {
-        var iconCode = glyph.match(/unicode="(.*?);?"/)[1].replace("&#x", ""), //catch all references by replace unicode prefix
-            pathData = glyph.match(/d="(.+?)"/)[1],
-            customWidthMatch = glyph.match(/horiz-adv-x="(.*?)"/),
-            contentWidth = customWidthMatch ? customWidthMatch[1] : defaultCharWidth;
+            //"square" fonts tend to be based at the center (like glyphicon)
+            //white other fonts tend to be based around the charAscent mark
+            //so wen need to flip them with different adjustments
+            translateOffset = (defaultCharWidth == defaultCharHeight ? defaultCharHeight : defaultCharAscent),
+            iconSvg = [];
 
-        iconSvg.push({
-            code: iconCode,
-            path: pathData,
-            svg: '<svg xmlns="http://www.w3.org/2000/svg" ' +
-                 'viewBox="0 0 ' + contentWidth + ' ' + defaultCharHeight + '">' +
-                 '<g transform="scale(1,-1) translate(0 -' + (translateOffset) + ')">' +
-                 '<path d="' + pathData + '"/>' +
-            '</g></svg>'
-        });
-    });
 
-    //callback(iconSvg);return;
+        fontSpec.glyph.forEach(function (glyph) {
+            //some strange fonts put empty glyphs in them
+            if(!glyph) return;
+            var iconCode = glyph['$']['unicode'],
+                pathData = glyph['$']['d'],
+                customWidthMatch = glyph['$']['horiz-adv-x'],
+                contentWidth = customWidthMatch && false ? customWidthMatch[1] : defaultCharWidth;
 
-    var optimizedCount = 0;
-    iconSvg.forEach(function (ic, idx) {
-        svgo.optimize(ic.svg, function (result) {
-
-            //override SVG and path details with the clean result
-            iconSvg[idx].svg = result.data;
-            iconSvg[idx].path = result.data.match(/d="(.*?)"/)[1];
-
-            if (++optimizedCount == iconSvg.length) {
-                callback(iconSvg);
+            if (iconCode.indexOf('&#') != -1) {
+                iconCode = iconCode.replace("&#x", "");
             }
+
+            if (iconCode.length == 1) {
+                iconCode = iconCode.charCodeAt(0).toString(16);
+            }
+
+            //Skip empty-looking glyphs
+            if(!iconCode.length || !pathData || pathData.length < 10 ) return;
+
+            iconSvg.push({
+                code: iconCode,
+                path: pathData,
+                svg: '<svg xmlns="http://www.w3.org/2000/svg" ' +
+                     'viewBox="0 0 ' + contentWidth + ' ' + defaultCharHeight + '">' +
+                     '<g transform="scale(1,-1) translate(0 -' + (translateOffset) + ')">' +
+                     '<path d="' + pathData + '"/>' +
+                '</g></svg>'
+            });
+        });
+
+        //callback(iconSvg);return;
+
+        var optimizedCount = 0;
+        iconSvg.forEach(function (ic, idx) {
+            svgo.optimize(ic.svg, function (result) {
+
+                //override SVG and path details with the clean result
+                iconSvg[idx].svg = result.data;
+                iconSvg[idx].path = result.data.match(/d="(.*?)"/)[1];
+
+                if (++optimizedCount == iconSvg.length) {
+                    callback(iconSvg);
+                }
+            });
         });
     });
 }

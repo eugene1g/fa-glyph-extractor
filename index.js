@@ -42,6 +42,7 @@ module.exports = function (destinationFolder, svgFontContent, userConfig) {
         });
         console.log("Saved " + characterSvgs.length + " SVG files");
 
+        //return;
         if (config.genPng.length) {
             var generator = require('./png-generator');
             console.log("Generating png images - this may take a while...");
