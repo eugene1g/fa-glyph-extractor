@@ -27,9 +27,9 @@ if (!fs.existsSync(svgFontFile)) {
 }
 
 
-var config    = {
+var config = {
     icons: program.icons,
     png:   program.png,
     color: program.color
-}, svgContent = fs.readFileSync(svgFontFile, 'utf8');
-require('../lib/font-blast/index')(svgContent, outputDir, config);
+};
+require('../lib/font-blast/index')(svgFontFile, outputDir, config);
