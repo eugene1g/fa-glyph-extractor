@@ -1,22 +1,17 @@
 #!/usr/bin/env node
 "use strict";
 
-var cliDefaults = require('../lib/defaultConfig'),
-    fs          = require('graceful-fs'),
-    npm         = require('../package.json');
-
-//cliDefaults.height = cliDefaults.height.join(',');
-//cliDefaults.icons = cliDefaults.icons.join('');
+var fs   = require('graceful-fs'),
+    pckg = require('../package.json');
 
 
 function csvToArray(val) {
-    console.log(val);
-    return val?val.split(','):[];
+    return val ? val.split(',') : [];
 }
 
 var program = require('commander');
 program.
-    version(npm.version).
+    version(pckg.version).
     usage("[options] svg-font.svg outputDir").
     option('-i, --icons <icon-refs>', "Comma-separated list to limits icons to certain codes", csvToArray).
     option('-c, --color', "The default color for your icons").
