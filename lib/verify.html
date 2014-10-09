@@ -19,22 +19,35 @@
             -moz-osx-font-smoothing: grayscale
         }
 
-        div > i {
+        div > i.fa {
             font-size: 100px;
-            float: left;
-            display: block;
         }
 
         img.svg-icon {
             height: 100px;
-            float: right;
-            display: block;
+        }
+        img.png-icon {
+            height: 100px;
         }
 
-        div {
+        div.row {
             clear: both;
-            max-width: 350px;
+            max-width: 850px;
             margin: 15px auto;
+        }
+
+        div.col
+        {
+            float: left;
+            width: 150px;
+        }
+
+        div.icon-ref
+        {
+            padding: 35px;
+            font-size: 20px;
+            color: silver;
+            width: 60px;
         }
 
         {iconRules}
