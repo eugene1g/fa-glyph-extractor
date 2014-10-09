@@ -1,14 +1,16 @@
 
-**6to5** turns ES6 code into vanilla ES5, so you can use ES6 features **today.**
+"Font-blast" takes an icon font (such as Font Awesome, Bootstrap Glyphicons, or anything from Fontello), and creates individual SVG and PNG files for each icon within that font.
 
- - **Fast** - no redundant code added so your compiled code is as fast as possible.
- - **Extensible** - with a large range of [plugins](#plugins) and **browser support**.
- - **Lossless** - **source map support** so you can debug your compiled code with ease.
- - **Compact** - maps directly to the equivalent ES5 with **no runtime**.
- - **Concise** - does not pollute scope with unnecessary variables.
+There are several use-cases for this:
+
+ - **Use the icons offline** - you can use each icon individually in Sketch, Illustrator, PowerPoint, or any other app.
+ - **Modify & repackage** - you can revise or combine individual icons, then repackage them into a custom font again (with other good tools) 
+ - **Get high-quality PNG files** - no more screenshots, just high-quality image files.
+
+Many of the popular icon-fonts have already been extracted and are available in the related repository at ...
 
 ## Installation
 
-It's as easy as:
+There are no binary dependencies 
 
-    $ npm install -g 6to5
+    $ npm install font-blast
