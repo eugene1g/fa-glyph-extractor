@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'SourceFont';
+            src: url('./source-font.svg') format('svg');
+            font-weight: normal;
+            font-style: normal
+        }
+
+        i.blas {
+            display: inline-block;
+            font-face: normal normal normal 50px/1 SourceFont;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        div > i {
+            font-size: 100px;
+            float: left;
+            display: block;
+        }
+
+        img.svg-icon {
+            height: 100px;
+            float: right;
+            display: block;
+        }
+
+        div {
+            clear: both;
+            max-width: 350px;
+            margin: 15px auto;
+        }
+
+        {iconRules}
+    </style>
+</head>
+<body>
+{iconContent}
+</body>
+</html>
