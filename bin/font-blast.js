@@ -1,21 +1,18 @@
 #!/usr/bin/env node
 "use strict";
 
-var fs   = require('graceful-fs'),
-    pckg = require('../package.json');
+var fs      = require('graceful-fs'),
+    pckg    = require('../package.json'),
+    program = require('commander');
 
-
-function csvToArray(val) {
-    return val ? val.split(',') : [];
-}
-
-var program = require('commander');
 program.
     version(pckg.version).
     usage("[options] svg-font.svg outputDir").
-    option('-i, --icons <icon-refs>', "Comma-separated list to limits icons to certain codes", csvToArray).
-    option('-c, --color', "The default color for your icons").
-    option('-p, --png <heights>', "Include this to generate PNG files. Please note you will need to have an executable binary in your path for 'batik-rasterizer' or 'rsvg-convert'", csvToArray).
+    option('-i, --icons <icon-refs>', "Limit the output to the selected icons. Icons can be provided with their unicode value or the full reference", function (val) {
+        return val ? val.split(',') : [];
+    }).
+    option('-p, --png', "Include this to generate PNG files. Please note you will need to have an executable binary in your path for 'batik-rasterizer'").
+    option('-c, --color', "Set the color of icons in the output (relevant mainly for PNG files)").
     parse(process.argv)
 ;
 
@@ -24,12 +21,10 @@ if (!svgFontFile || !outputDir) {
     program.help();
 }
 
-var config = {
-    icons:  program.icons,
-    color:  program.color,
-    png: program.png
-
-};
-var svgContent = fs.readFileSync(svgFontFile, 'utf8');
+var config    = {
+    icons: program.icons,
+    png:   program.png,
+    color: program.color
+}, svgContent = fs.readFileSync(svgFontFile, 'utf8');
 
 require('../lib/index')(svgContent, outputDir, config);
