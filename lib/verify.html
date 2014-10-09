@@ -17,26 +17,36 @@
             text-rendering: auto;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            font-size: {height}px;
+            font-size: _height_px;
         }
 
         img.svg-icon {
-            height: {height}px;
+            height: _height_px;
         }
         img.png-icon {
-            height: {height}px;
+            height: _height_px;
         }
 
         .row {
             clear: both;
-            max-width: 850px;
-            margin: 15px auto;
+            max-width: 1050px;
+            margin: 35px auto;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .row:after {
+            content: ".";
+            visibility: hidden;
+            display: block;
+            height: 0;
+            clear: both;
         }
 
         .col
         {
             float: left;
-            max-width: 200px;
+            width: 200px;
         }
 
         .col.icon-ref
@@ -49,15 +59,16 @@
         .col.header
         {
             height: 40px;
+            padding: 0 5px;
             font-weight: bold;
             color: silver;
             text-align: center;
         }
 
-        {iconRules}
+        _iconRules_
     </style>
 </head>
 <body>
-{iconContent}
+_iconContent_
 </body>
 </html>

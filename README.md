@@ -11,6 +11,6 @@ Many of the popular icon-fonts have already been extracted and are available in 
 
 ## Installation
 
-There are no binary dependencies 
+The package is self-sustained and is super fast - there are no nasty binary dependencies. 
 
     $ npm install font-blast
