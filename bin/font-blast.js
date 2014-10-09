@@ -30,6 +30,6 @@ var config = {
     png: program.png
 
 };
-var svgContent = fs.readFileSync(svgFontFile);
+var svgContent = fs.readFileSync(svgFontFile, 'utf8');
 
 require('../lib/index')(svgContent, outputDir, config);

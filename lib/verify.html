@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
     <style>
         @font-face {
             font-family: 'SourceFont';
-            src: url('./source-font.svg') format('svg');
+            src: url('source-font.ttf') format('truetype');
             font-weight: normal;
             font-style: normal
         }
 
-        i.blas {
+        i {
+
             display: inline-block;
-            font-face: normal normal normal 50px/1 SourceFont;
-            font-size: inherit;
+            font: normal normal normal 50px/1 SourceFont;
             text-rendering: auto;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale
-        }
-
-        div > i.fa {
+            -moz-osx-font-smoothing: grayscale;
             font-size: 100px;
         }
 
@@ -30,26 +27,26 @@
             height: 100px;
         }
 
-        div.row {
+        .row {
             clear: both;
             max-width: 850px;
             margin: 15px auto;
         }
 
-        div.col
+        .col
         {
             float: left;
             width: 150px;
         }
 
-        div.icon-ref
+        .col.icon-ref
         {
             padding: 35px;
             font-size: 20px;
             color: silver;
         }
 
-        div.header
+        .col.header
         {
             height: 40px;
             font-weight: bold;

@@ -1,35 +1,36 @@
 {
-    "name":         "font-blast",
-    "description":  "Font Awesome split to individual SVG and PNG files of different sizes along with Node.JS based generator",
-    "version":      "0.2.0",
-    "license":      "proprietory",
-    "author":       "eugene1g",
-    "homepage":     "https://github.com/eugene1g/font-blast",
-    "repository":   {
-        "type": "git",
-        "url":  "https://github.com/eugene1g/font-blast.git"
-    },
-    "bugs":         {
-        "url": "https://github.com/eugene1g/font-blast/issues"
-    },
-    "main":         "lib/index.js",
-    "bin":          {
-        "font-blast": "./bin/font-blast"
-    },
-    "keywords":     [
-        "svg",
-        "font",
-        "icon",
-        "bootstrap",
-        "extract"
-    ],
-    "dependencies": {
-        "graceful-fs": "^3.0.3",
-        "js-yaml":     "~3.2.2",
-        "mkdirp":      "~0.5.0",
-        "commander":    "~2.3",
-        "superagent":  "~0.20.0",
-        "svgo":        "0.4.4",
-        "xml2js":      "^0.4.4"
-    }
+  "name": "font-blast",
+  "description": "Font Awesome split to individual SVG and PNG files of different sizes along with Node.JS based generator",
+  "version": "0.2.0",
+  "license": "proprietory",
+  "author": "eugene1g",
+  "homepage": "https://github.com/eugene1g/font-blast",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eugene1g/font-blast.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eugene1g/font-blast/issues"
+  },
+  "main": "lib/index.js",
+  "bin": {
+    "font-blast": "./bin/font-blast"
+  },
+  "keywords": [
+    "svg",
+    "font",
+    "icon",
+    "bootstrap",
+    "extract"
+  ],
+  "dependencies": {
+    "commander": "~2.3",
+    "graceful-fs": "^3.0.3",
+    "js-yaml": "~3.2.2",
+    "mkdirp": "~0.5.0",
+    "superagent": "~0.20.0",
+    "svg2ttf": "^1.2.0",
+    "svgo": "0.4.4",
+    "xml2js": "^0.4.4"
+  }
 }
